@@ -370,6 +370,7 @@ void ESP8266_STA_TCP_Client ( void )
 	char cStrInput [100] = { 0 }, * pStrDelimiter [2], * pBuf, * pStr;
 	u8 uc = 0;
   u32 ul = 0;
+	u8 cnt = 1;//should be five for multest
 
 	ESP8266_Choose ( ENABLE );	
 
@@ -397,7 +398,7 @@ void ESP8266_STA_TCP_Client ( void )
 		
   } while ( ! ESP8266_JoinAP ( pStrDelimiter [0], pStrDelimiter [1] ) );
 	
-	ESP8266_Enable_MultipleId ( ENABLE );
+	ESP8266_Enable_MultipleId ( DISABLE );//should be enable for multi channel test
 	
 	do 
 	{
@@ -415,21 +416,23 @@ void ESP8266_STA_TCP_Client ( void )
 			pBuf = NULL;
 		} 
 		
-  } while ( ! ( ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_0 ) &&
-	              ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_1 ) &&
-	              ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_2 ) &&
-	              ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_3 ) &&
-	              ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_4 ) ) );
+  } while ( ! ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Single_ID_0 ));//should be 5 for single channel
+//	while ( ! ( ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_0 ) &&
+//	              ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_1 ) &&
+//	              ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_2 ) &&
+//	              ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_3 ) &&
+//	              ESP8266_Link_Server ( enumTCP, pStrDelimiter [0], pStrDelimiter [1], Multiple_ID_4 ) ) );
 
-  for ( uc = 0; uc < 5; uc ++ )
+
+	for ( uc = 0; uc < cnt; uc ++ )
 	{
 		PC_Usart ( "\r\n请输入端口ID%d要发送的字符串，输入格式为：字符串（不含空格）+空格，点击发送\r\n", uc );
 
 		scanf ( "%s", cStrInput );
 
 		ul = strlen ( cStrInput );
-		
-		ESP8266_SendString ( DISABLE, cStrInput, ul, ( ENUM_ID_NO_TypeDef ) uc );
+		ESP8266_SendString ( DISABLE, cStrInput, ul, ( ENUM_ID_NO_TypeDef ) Single_ID_0 );//should be Single_ID_0		
+		//ESP8266_SendString ( DISABLE, cStrInput, ul, ( ENUM_ID_NO_TypeDef ) uc );
 		
 	}
 	

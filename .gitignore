@@ -1,7 +1,5 @@
 *.map
-*.lst
 OUTPUT/
-*.uvgui*.*
 
 # Compiled Object files
 *.slo
@@ -78,5 +76,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-*.uvoptx
 *.uvopt

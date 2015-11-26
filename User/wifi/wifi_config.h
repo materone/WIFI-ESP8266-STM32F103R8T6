@@ -43,7 +43,7 @@ typedef enum{
 } ENUM_AP_PsdMode_TypeDef;
 
 
-#define RX_BUF_MAX_LEN     1024                                     //最大接收缓存字节数
+#define RX_BUF_MAX_LEN     2048                                     //最大接收缓存字节数
 
 extern struct  STRUCT_USARTx_Fram                                  //串口数据帧的处理结构体
 {
